@@ -1,0 +1,2 @@
+sed "s/<client id>/$(jq '.web.client_id' credentials.json)/g" index.html >x
+sed "s/<api key>/'$(cat api.key)'/g" x >index.js
