@@ -23,6 +23,7 @@ async function loadSavedCredentialsIfExist() {
     const credentials = JSON.parse(content);
     return google.auth.fromJSON(credentials);
   } catch (err) {
+    console.log('loadSavedCreds... failed');
     return null;
   }
 }
@@ -56,10 +57,12 @@ async function authorize() {
   if (client) {
     return client;
   }
+  console.log('awaiting authentication');
   client = await authenticate({
     scopes: SCOPES,
     keyfilePath: CREDENTIALS_PATH,
   });
+  console.log('authenticate returns');
   if (client.credentials) {
     await saveCredentials(client);
   }
